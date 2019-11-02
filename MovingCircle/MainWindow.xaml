@@ -12,6 +12,7 @@
             <Ellipse x:Name="ParticleEllipse2" Fill="Green" Width="32" Height="32"></Ellipse>
             <Ellipse x:Name="ParticleEllipse3" Fill="Green" Width="32" Height="32"></Ellipse>
             <Ellipse x:Name="ParticleEllipse4" Fill="Green" Width="32" Height="32"></Ellipse>
+            <Ellipse x:Name="ParticleEllipseUser" Fill="Red" Width="32" Height="32"></Ellipse>
         </Canvas>
 
     </Grid>

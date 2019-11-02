@@ -9,32 +9,33 @@ namespace MovingCircle.Phis {
 
     class GroundContact : IParticleContactGenerator {
 
-        private List<Particlef> particles;
+        private List<Particlef> _particles = new List<Particlef>();
+        private float _w = 640.0f;
+        private float _h = 480.0f;
 
-        public GroundContact() {
-            particles = new List<Particlef>();
+        public GroundContact(float w, float h) {
+            this._w = w;
+            this._h = h;
         }
 
         public void init(List<Particlef> particles) {
-            this.particles = particles;
+            this._particles = particles;
         }
 
         public int addContact(ParticleContact[] contacts, int current, int limit) {
 
             int count = 0;
             ParticleContact contact = contacts[current];
-            foreach (Particlef p in particles) {
+            foreach (Particlef p in _particles) {
 
                 float y = p.Position.y;
                 float x = p.Position.x;
                 float r = p.Radius * 2.0f;
-                float w = 640.0f;
-                float h = 480.0f;
-                if (y + r > 480.0f) {
+                if (y + r > _h) {
                     contact.contactNormal = new Vec3f(0.0f, -1.0f, 0.0f);
                     contact.particle1 = p;
                     contact.particle2 = null;
-                    contact.penetration = y - h;
+                    contact.penetration = y - _h;
                     contact.restitution = 0.4f;
                     current++;
                     contact = contacts[current];
@@ -52,11 +53,11 @@ namespace MovingCircle.Phis {
                     count++;
                 }
 
-                if (x + r > 640.0f) {
+                if (x + r > _w) {
                     contact.contactNormal = new Vec3f(-1.0f, 0.0f, 0.0f);
                     contact.particle1 = p;
                     contact.particle2 = null;
-                    contact.penetration = x - w;
+                    contact.penetration = x - _w;
                     contact.restitution = 0.7f;
                     current++;
                     contact = contacts[current];

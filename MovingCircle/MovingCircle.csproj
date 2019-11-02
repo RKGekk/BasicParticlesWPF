@@ -81,6 +81,7 @@
     <Compile Include="Phis\ParticleGravity.cs" />
     <Compile Include="Phis\ParticleWorld.cs" />
     <Compile Include="Phis\SphereContact.cs" />
+    <Compile Include="Phis\UserForce.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

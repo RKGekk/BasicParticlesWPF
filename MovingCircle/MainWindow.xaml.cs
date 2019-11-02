@@ -24,11 +24,12 @@ namespace MovingCircle {
         private Particlef _particle2 = new Particlef(new Vec3f(248.0f, 100.0f, 0.0f), new Vec3f(-100.0f, 0.0f, 0.0f), 16.0f, 10.0f);
         private Particlef _particle3 = new Particlef(new Vec3f(348.0f, 200.0f, 0.0f), new Vec3f(-130.0f, 0.0f, 0.0f), 16.0f, 10.0f);
         private Particlef _particle4 = new Particlef(new Vec3f(48.0f, 160.0f, 0.0f), new Vec3f(80.0f, 0.0f, 0.0f), 16.0f, 10.0f);
+        private Particlef _particleUser = new Particlef(new Vec3f(48.0f, 360.0f, 0.0f), new Vec3f(0.0f, 0.0f, 0.0f), 16.0f, 10.0f);
         private ParticleGravity _g = new ParticleGravity(new Vec3f(0.0f, 9.8f * 40.0f, 0.0f));
-        private GroundContact _groundContactGenerator = new GroundContact();
+        private UserForce _u = new UserForce();
+        private GroundContact _groundContactGenerator = new GroundContact(640.0f, 480.0f);
         private SphereContact _sphereContactGenerator = new SphereContact();
         private GameTimer _timer = new GameTimer();
-
 
         public MainWindow() {
             InitializeComponent();
@@ -39,6 +40,7 @@ namespace MovingCircle {
             _world1.getParticles().Add(_particle2);
             _world1.getParticles().Add(_particle3);
             _world1.getParticles().Add(_particle4);
+            _world1.getParticles().Add(_particleUser);
 
             _groundContactGenerator.init(_world1.getParticles());
             _sphereContactGenerator.init(_world1.getParticles());
@@ -47,6 +49,8 @@ namespace MovingCircle {
             _world1.getForceRegistry().add(_particle2, _g);
             _world1.getForceRegistry().add(_particle3, _g);
             _world1.getForceRegistry().add(_particle4, _g);
+            _world1.getForceRegistry().add(_particleUser, _g);
+            _world1.getForceRegistry().add(_particleUser, _u);
 
             _world1.getContactGenerators().Add(_groundContactGenerator);
             _world1.getContactGenerators().Add(_sphereContactGenerator);
@@ -62,7 +66,7 @@ namespace MovingCircle {
         }
 
         protected void UpdateChildren(object sender, EventArgs e) {
-            
+
             _timer.tick();
 
             _world1.startFrame();
@@ -80,6 +84,9 @@ namespace MovingCircle {
 
             Canvas.SetLeft(ParticleEllipse4, _particle4.Position.x);
             Canvas.SetTop(ParticleEllipse4, _particle4.Position.y);
+
+            Canvas.SetLeft(ParticleEllipseUser, _particleUser.Position.x);
+            Canvas.SetTop(ParticleEllipseUser, _particleUser.Position.y);
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e) {
